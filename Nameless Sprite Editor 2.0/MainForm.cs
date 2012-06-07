@@ -14,7 +14,7 @@ namespace NSE2
 {
     public partial class MainForm : Form, IPluginHost
     {
-        // Test
+
         public string BookMarkFile;
 
         private bool BS;
