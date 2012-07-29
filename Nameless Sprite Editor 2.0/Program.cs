@@ -7,8 +7,8 @@ namespace NSE2
 {
     public static class Program
     {
-        public static NSE_Framework.IO.IniFile INI; 
-        public static string Version = "v2.0 Beta 2.1";        
+        public static NSE_Framework.IO.IniFile INI;
+        public static string Version = "2.1 Beta";        
         public static MainForm MainForm;
         public static Navigate Navigate;
         public static NSE_Framework.IO.BookMarkTree BookMarkTree;
@@ -56,21 +56,20 @@ namespace NSE2
                 try
                 {
                     System.Net.WebClient client = new System.Net.WebClient();
-                    String updateCode = client.DownloadString("http://www.lastlink.tk/Projects/Nameless Sprite Editor 2.X/version.html");
-                    if (updateCode[0] == '#')
-                    {
-                        updateCode = updateCode.Substring(1, updateCode.IndexOf('!') - 1);
+                    String updateCode = client.DownloadString("https://hg01.codeplex.com/nse/raw-file/tip/VERSION.txt");
+
+                        //updateCode = updateCode.Substring(1, updateCode.IndexOf('!') - 1);
 
                         if (Program.Version != updateCode)
                         {
                             if (MessageBox.Show("An update is available for Nameless Sprite Editor 2.X.\nVersion name: " + updateCode + "\nGet the new version?", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                             {
-                                System.Diagnostics.Process.Start("http://www.lastlink.tk/Projects/?p=Nameless Sprite Editor 2.X");
+                                System.Diagnostics.Process.Start("http://nse.codeplex.com/releases");
                             }
                         }
 
                         Program.INI.IniWriteValue("NSE", "LastUpdate", DateTime.Today.Day.ToString());
-                    }
+
                 }
                 catch
                 {
