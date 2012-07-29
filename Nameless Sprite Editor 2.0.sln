@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Footprints", "..\NSE Plugin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorMatch", "ColorMatch\ColorMatch.csproj", "{8BD68773-0966-499D-B676-D5FD492F04D2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F10D8EF-BEEE-487C-9CC0-F005E6E28932}"
+	ProjectSection(SolutionItems) = preProject
+		VERSION.txt = VERSION.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
