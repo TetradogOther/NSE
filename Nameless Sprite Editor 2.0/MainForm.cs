@@ -1654,7 +1654,7 @@ namespace NSE2
 
         private void MenuItemOnline_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.lastlink.tk/Projects/?p=Nameless Sprite Editor 2.X");
+            System.Diagnostics.Process.Start("http://nse.codeplex.com/");
         }
 
         private void StrokeButtonPlus_Click(object sender, EventArgs e)
