@@ -231,14 +231,14 @@ namespace NSE2
             // 
             // Version
             // 
-            this.Version.AutoSize = true;
             this.Version.BackColor = System.Drawing.Color.Transparent;
             this.Version.ForeColor = System.Drawing.Color.White;
-            this.Version.Location = new System.Drawing.Point(408, 28);
+            this.Version.Location = new System.Drawing.Point(340, 23);
             this.Version.Name = "Version";
-            this.Version.Size = new System.Drawing.Size(42, 13);
+            this.Version.Size = new System.Drawing.Size(145, 13);
             this.Version.TabIndex = 3;
             this.Version.Text = "Version";
+            this.Version.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Title
             // 

@@ -14,7 +14,7 @@ namespace NSE2
         public Splash()
         {
             InitializeComponent();
-            Version.Text = Program.Version;
+            Version.Text = "Version: " + Program.Version;
         }
 
         private void Close_CheckedChanged(object sender, EventArgs e)
