@@ -125,7 +125,6 @@ namespace NSE2
         }
 
 
-
         private void ButtonEyedropper_MouseDown(object sender, MouseEventArgs e)
         {
             EyedropTimer.Enabled = true;
