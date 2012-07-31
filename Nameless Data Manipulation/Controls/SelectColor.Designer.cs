@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.Colors = new System.Windows.Forms.PictureBox();
             this.paletteMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.switchColors = new System.Windows.Forms.ToolStripMenuItem();
             this.swapColors = new System.Windows.Forms.ToolStripMenuItem();
+            this.switchColors = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Colors)).BeginInit();
             this.paletteMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -54,21 +54,21 @@
             this.swapColors,
             this.switchColors});
             this.paletteMenuStrip.Name = "paletteMenuStrip";
-            this.paletteMenuStrip.Size = new System.Drawing.Size(153, 70);
-            // 
-            // switchColors
-            // 
-            this.switchColors.Name = "switchColors";
-            this.switchColors.Size = new System.Drawing.Size(152, 22);
-            this.switchColors.Text = "Switch Colors";
-            this.switchColors.Click += new System.EventHandler(this.switchColors_Click);
+            this.paletteMenuStrip.Size = new System.Drawing.Size(147, 48);
             // 
             // swapColors
             // 
             this.swapColors.Name = "swapColors";
-            this.swapColors.Size = new System.Drawing.Size(152, 22);
+            this.swapColors.Size = new System.Drawing.Size(146, 22);
             this.swapColors.Text = "Swap Colors";
             this.swapColors.Click += new System.EventHandler(this.swapColors_Click);
+            // 
+            // switchColors
+            // 
+            this.switchColors.Name = "switchColors";
+            this.switchColors.Size = new System.Drawing.Size(146, 22);
+            this.switchColors.Text = "Switch Colors";
+            this.switchColors.Click += new System.EventHandler(this.switchColors_Click);
             // 
             // SelectColor
             // 

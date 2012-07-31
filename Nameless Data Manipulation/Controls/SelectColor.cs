@@ -38,6 +38,8 @@ namespace NSE_Framework.Controls
             }
 
         }
+
+        [BrowsableAttribute(true)]
         public bool AllowSwitchSwap = true;
         
         [BrowsableAttribute(false)]
@@ -91,10 +93,16 @@ namespace NSE_Framework.Controls
         public SelectColor()
         {
             InitializeComponent();
+
+            if (!AllowSwitchSwap)
+                this.Colors.ContextMenuStrip = null;
         }
         public SelectColor(ref Editor Editor)
         {
             InitializeComponent();
+
+            if (!AllowSwitchSwap)
+                this.Colors.ContextMenuStrip = null;
             
             if (Editor.CurrentSprite.Palette != null)
             {
@@ -245,7 +253,7 @@ namespace NSE_Framework.Controls
                     //    g.DrawRectangle(new Pen(Color.Black, 1), p.X + 1, p.Y + 1, a - 3, b - 3);
                     //}
 
-                    if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                    if (e.Button == System.Windows.Forms.MouseButtons.Right && AllowSwitchSwap)
                     {
                         nIndex = (byte)(p.Y / b * 16 + p.X / a);                      
                     }
@@ -259,74 +267,79 @@ namespace NSE_Framework.Controls
 
         }
 
-
         private void switchColors_Click(object sender, EventArgs e)
         {
-            byte[] oldColor = Editor.CurrentSprite.Palette.Colors[Index].Bytes;
-
-            Editor.CurrentSprite.Palette.Colors[Index] = new Data.GBAcolor(Editor.CurrentSprite.Palette.Colors[nIndex].Bytes);
-            Editor.CurrentSprite.Palette.Colors[nIndex] = new Data.GBAcolor(oldColor);
-
-            if (Editor.CurrentSprite.Type == Data.Sprite.SpriteType.Color256)
+            if (AllowSwitchSwap)
             {
-                #region 256color
-                for (int i = 0; i < Editor.CurrentSprite.ImageData.Length; i++)
+                Data.GBAcolor oldColor = Editor.CurrentSprite.Palette.Colors[Index];
+
+                Editor.CurrentSprite.Palette.Colors[Index] = Editor.CurrentSprite.Palette.Colors[nIndex];
+                Editor.CurrentSprite.Palette.Colors[nIndex] = oldColor;
+
+                if (Editor.CurrentSprite.Type == Data.Sprite.SpriteType.Color256)
                 {
-                    if (Editor.CurrentSprite.ImageData[i] == Index)
+                    #region 256color
+                    for (int i = 0; i < Editor.CurrentSprite.ImageData.Length; i++)
                     {
-                        Editor.CurrentSprite.ImageData[i] = (byte)nIndex;
+                        if (Editor.CurrentSprite.ImageData[i] == Index)
+                        {
+                            Editor.CurrentSprite.ImageData[i] = (byte)nIndex;
+                        }
+                        else if (Editor.CurrentSprite.ImageData[i] == nIndex)
+                        {
+                            Editor.CurrentSprite.ImageData[i] = Index;
+                        }
                     }
-                    else if (Editor.CurrentSprite.ImageData[i] == nIndex)
-                    {
-                        Editor.CurrentSprite.ImageData[i] = Index;
-                    }
+                    #endregion
                 }
-                #endregion
-            }
-            else if (Editor.CurrentSprite.Type == Data.Sprite.SpriteType.Color16)
-            {
-                #region 16color
-                for (int i = 0; i < Editor.CurrentSprite.ImageData.Length; i++)
+                else if (Editor.CurrentSprite.Type == Data.Sprite.SpriteType.Color16)
                 {
-                    byte r = (byte)(Editor.CurrentSprite.ImageData[i] & 0x0F);
-                    byte l = (byte)((Editor.CurrentSprite.ImageData[i] & 0x0F0) >> 4);
-
-                    if (r == Index)
+                    #region 16color
+                    for (int i = 0; i < Editor.CurrentSprite.ImageData.Length; i++)
                     {
-                        r = (byte)nIndex;
-                    }
-                    else if (r == nIndex)
-                    {
-                        r = Index;
-                    }
+                        byte r = (byte)(Editor.CurrentSprite.ImageData[i] & 0x0F);
+                        byte l = (byte)((Editor.CurrentSprite.ImageData[i] & 0x0F0) >> 4);
 
-                    if (l == Index)
-                    {
-                        l = (byte)nIndex;
-                    }
-                    else if (l == nIndex)
-                    {
-                        l = Index;
-                    }
+                        if (r == Index)
+                        {
+                            r = (byte)nIndex;
+                        }
+                        else if (r == nIndex)
+                        {
+                            r = Index;
+                        }
 
-                    Editor.CurrentSprite.ImageData[i] = (byte)((l << 4) | r);
+                        if (l == Index)
+                        {
+                            l = (byte)nIndex;
+                        }
+                        else if (l == nIndex)
+                        {
+                            l = Index;
+                        }
 
+                        Editor.CurrentSprite.ImageData[i] = (byte)((l << 4) | r);
+
+                    }
+                    #endregion
                 }
-                #endregion
+
+                Redraw();
+                Editor.Redraw();
             }
-                
-            Redraw();
-            Editor.Redraw();     
         }
         private void swapColors_Click(object sender, EventArgs e)
         {
-            byte[] oldColor = Editor.CurrentSprite.Palette.Colors[Index].Bytes;
+            if (AllowSwitchSwap)
+            {
+                Data.GBAcolor oldColor = Editor.CurrentSprite.Palette.Colors[Index];
 
-            Editor.CurrentSprite.Palette.Colors[Index] = new Data.GBAcolor(Editor.CurrentSprite.Palette.Colors[nIndex].Bytes);
-            Editor.CurrentSprite.Palette.Colors[nIndex] = new Data.GBAcolor(oldColor);
+                Editor.CurrentSprite.Palette.Colors[Index] = Editor.CurrentSprite.Palette.Colors[nIndex];
+                Editor.CurrentSprite.Palette.Colors[nIndex] = oldColor;
 
-            Redraw();
-            Editor.Redraw(); 
+                Redraw();
+                Editor.Redraw();
+            }
         }
     }
 }
