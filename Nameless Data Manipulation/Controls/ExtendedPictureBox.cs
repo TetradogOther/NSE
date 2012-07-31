@@ -36,7 +36,7 @@ namespace NSE_Framework.Controls
                 RectangleF destinationRectangle;
 
                 int scale = (this.Size.Width / this.Image.Size.Width + this.Size.Height / this.Image.Size.Height) / 2;
-                if (scale == 1 || scale % 2 == 0)
+                if (scale == 1 || (scale & 0x1) == 0)
                 {
                     destinationRectangle = new RectangleF(0.0f, 0.0f, (float)this.Size.Width, (float)this.Size.Height);
                 }
