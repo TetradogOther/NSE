@@ -73,10 +73,12 @@ namespace NSE_Framework.Data
     }
 
     [Serializable()]
-    public class GBAcolor
+    public struct GBAcolor
     {
-        public byte[] Bytes;
-
+        //public byte[] Bytes;
+        public byte Red;
+        public byte Green;
+        public byte Blue;
 
         public System.Drawing.Color Color
         {
@@ -84,57 +86,44 @@ namespace NSE_Framework.Data
 
             set
             {
-                Bytes[0] = value.R;
-                Bytes[1] = value.G;
-                Bytes[2] = value.B;
+                Red = value.R;
+                Green = value.G;
+                Blue = value.B;
             }
         }
 
-        public byte Red
-        {
-            get { return Bytes[0]; }
+        //public byte[] Red
+        //{
+        //    get { return Bytes[0]; }
 
-            set { Bytes[0] = value; }
-        }
-        public byte Green
-        {
-            get { return Bytes[1]; }
+        //    set { Bytes[0] = value; }
+        //}
+        //public byte Green
+        //{
+        //    get { return Bytes[1]; }
 
-            set { Bytes[1] = value; }
-        }
+        //    set { Bytes[1] = value; }
+        //}
+        //public byte Blue
+        //{
+        //    get { return Bytes[2]; }
 
-        public byte Blue
-        {
-            get { return Bytes[2]; }
-
-            set { Bytes[2] = value; }
-        }
+        //    set { Bytes[2] = value; }
+        //}
 
         public GBAcolor(System.Drawing.Color Color)
         {
-            Bytes = new byte[3];
             this.Red = Color.R;
             this.Green = Color.G;
             this.Blue = Color.B;
         }
 
-
         public GBAcolor(byte Red, byte Green, byte Blue)
         {
-            Bytes = new byte[3];
             this.Red = Red;
             this.Green = Green;
             this.Blue = Blue;
         }
 
-        public GBAcolor(byte[] Bytes)
-        {
-            this.Bytes = Bytes;
-        }
-
-        public GBAcolor()
-        {
-            Bytes = new byte[3];
-        }
     }
 }
