@@ -860,313 +860,305 @@ namespace NSE_Framework.Controls
             {
                 g = Graphics.FromImage(EditBox.Image);
                 g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-                #region Tools
 
                 if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
-                    //If we're using the pencil
-                    if (this.Mode == EditMode.Pencil)
+                    switch (this.Mode)
                     {
-                        #region Pencil
-                        if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
-                           mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
-                        {
-                            int pos = Position2Index(new Size(this.CurrentSprite.Width * 8, this.CurrentSprite.Height * 8), this.EditBox.PointToClient(Cursor.Position), CurrentSprite.Type);
-
-                            if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
-                            {
-                                #region SetData16
-                                if (mouse.X % 2 == 0)
-                                {
-                                    //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4) + selectedColor)[0];
-                                    CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0xf0) + selectedColor);
-                                }
-                                else
-                                {
-                                    //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(
-                                    //    CurrentSprite.ImageData[pos] -
-                                    //    BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4))[0]
-                                    //    + (selectedColor * 0x10))[0];
-                                    CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0x0f) + (selectedColor << 4));
-                                }
-                                #endregion
-                            }
-                            else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
-                            {
-                                #region SetData256
-                                CurrentSprite.ImageData[pos] = selectedColor;
-                                #endregion
-                            }
-
-                            if (selectedColor != 0)
-                            {
-
-                                g.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[selectedColor].Color), mouse.X, mouse.Y, 1, 1);
-                            }
-                            else if (selectedColor == 0)
-                            {
-
-                                g.FillRectangle(new SolidBrush(Color.Transparent), mouse.X, mouse.Y, 1, 1);
-
-                            }
-
-
-                        }
-                        #endregion
-                        
-                        if (Modified != null)
-                        {
-                            Modified(this, new EventArgs());
-                        }
+                        case EditMode.Pencil:
+                            PencilFunction(g, mouse);
+                            break;
+                        case EditMode.Brush:
+                            BrushFunction(g, mouse);
+                            break;
+                        case EditMode.Bucket:
+                            BucketFunction(g, mouse);
+                            break;
+                        case EditMode.Eyedropper:
+                            EyedropFunction(mouse);
+                            break;
                     }
-                    else if (this.Mode == EditMode.Brush)
+                    EditBox.Invalidate();
+                }   
+            }           
+        }
+
+        void PencilFunction(Graphics g, Point mouse)
+        {
+            #region Pencil
+            if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
+               mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
+            {
+                int pos = Position2Index(new Size(this.CurrentSprite.Width * 8, this.CurrentSprite.Height * 8), this.EditBox.PointToClient(Cursor.Position), CurrentSprite.Type);
+
+                if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
+                {
+                    #region SetData16
+                    if ((mouse.X & 0x1) == 0)
                     {
-                        #region Brush
-                        if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
-                           mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
-                        {
-                            Rectangle r = new Rectangle(mouse.X - (((brushstroke + 1) * 2 + 1) / 2),
-                                    mouse.Y - (((brushstroke + 1) * 2 + 1) / 2),
-                                    (brushstroke + 1) * 2 + 1,
-                                    (brushstroke + 1) * 2 + 1);
-
-                            for (int y = r.Y; y < r.Bottom; y++)
-                            {
-                                for (int x = r.X; x < r.Right; x++)
-                                {
-                                    int pos = Position2Index(new Size(this.CurrentSprite.Width * 8, this.CurrentSprite.Height * 8), new Point(x, y), CurrentSprite.Type, false);
-                                    if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
-                                    {
-                                        #region SetData16
-                                        if (x % 2 == 0)
-                                        {
-                                            //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4) + selectedColor)[0];
-                                            CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0xf0) + selectedColor);
-
-                                        }
-                                        else
-                                        {
-                                            //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(
-                                            //    CurrentSprite.ImageData[pos] -
-                                            //    BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4))[0]
-                                            //    + (selectedColor * 0x10))[0];
-                                            CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0x0f) + (selectedColor << 4));
-                                        }
-                                        #endregion
-                                    }
-                                    else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
-                                    {
-                                        #region SetData256
-                                        CurrentSprite.ImageData[pos] = selectedColor;
-                                        #endregion
-                                    }
-                                }
-                            }
-
-
-                            if (selectedColor != 0)
-                            {
-
-                                g.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[selectedColor].Color),
-                                    r.X,
-                                    r.Y,
-                                    r.Width,
-                                    r.Height);
-                            }
-                            else if (selectedColor == 0)
-                            {
-                                g.FillRectangle(new SolidBrush(Color.Transparent),
-                                    r.X,
-                                    r.Y,
-                                    r.Width,
-                                    r.Height);
-                            }
-                        }
-                        #endregion
-
-                        if (Modified != null)
-                        {
-                            Modified(this, new EventArgs());
-                        }
+                        //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4) + selectedColor)[0];
+                        CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0xf0) + selectedColor);
                     }
-                    else if (this.Mode == EditMode.Bucket)
+                    else
                     {
-                        #region Bucket
-                        if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
-                           mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
+                        //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(
+                        //    CurrentSprite.ImageData[pos] -
+                        //    BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4))[0]
+                        //    + (selectedColor * 0x10))[0];
+                        CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0x0f) + (selectedColor << 4));
+                    }
+                    #endregion
+                }
+                else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
+                {
+                    #region SetData256
+                    CurrentSprite.ImageData[pos] = selectedColor;
+                    #endregion
+                }
+
+                if (selectedColor != 0)
+                {
+
+                    g.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[selectedColor].Color), mouse.X, mouse.Y, 1, 1);
+                }
+                else if (selectedColor == 0)
+                {
+
+                    g.FillRectangle(new SolidBrush(Color.Transparent), mouse.X, mouse.Y, 1, 1);
+
+                }
+
+
+            }
+            #endregion
+
+            if (Modified != null)
+            {
+                Modified(this, new EventArgs());
+            }
+        }
+        void BrushFunction(Graphics g, Point mouse)
+        {
+            #region Brush
+            if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
+               mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
+            {
+                Rectangle r = new Rectangle(mouse.X - (((brushstroke + 1) * 2 + 1) / 2),
+                        mouse.Y - (((brushstroke + 1) * 2 + 1) / 2),
+                        (brushstroke + 1) * 2 + 1,
+                        (brushstroke + 1) * 2 + 1);
+
+                for (int y = r.Y; y < r.Bottom; y++)
+                {
+                    for (int x = r.X; x < r.Right; x++)
+                    {
+                        int pos = Position2Index(new Size(this.CurrentSprite.Width * 8, this.CurrentSprite.Height * 8), new Point(x, y), CurrentSprite.Type, false);
+                        if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
                         {
-                            g.Dispose();
-
-                            int pos = Position2Index(new Size(this.CurrentSprite.Width * 8, this.CurrentSprite.Height * 8), this.EditBox.PointToClient(Cursor.Position), CurrentSprite.Type);
-
-                            byte ColorIndex;
-
-                            #region GetColorIndex
-                            if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
+                            #region SetData16
+                            if ((x & 0x1) == 0)
                             {
-                                #region Color16
-                                ColorIndex = GetHalfByteFromIndex(pos, mouse.X);
-                                #endregion
-                            }
-                            else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
-                            {
-                                #region Color256
-                                ColorIndex = CurrentSprite.ImageData[pos];
-                                #endregion
+                                //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4) + selectedColor)[0];
+                                CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0xf0) + selectedColor);
+
                             }
                             else
                             {
-                                throw new Exception("Non-supported sprite type.");
+                                //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(
+                                //    CurrentSprite.ImageData[pos] -
+                                //    BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4))[0]
+                                //    + (selectedColor * 0x10))[0];
+                                CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0x0f) + (selectedColor << 4));
                             }
                             #endregion
-
-                            if (selectedColor != ColorIndex)
-                            {
-                                #region SetInitialPixel
-                                if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
-                                {
-                                    SetHalfByteFromIndex(pos, mouse.X, selectedColor);
-                                }
-                                else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
-                                {
-                                    CurrentSprite.ImageData[pos] = selectedColor;
-                                }
-                                #endregion
-                                List<Point> Points = new List<Point>();
-                                Points.Add(mouse);
-
-                                while (Points.Count != 0)
-                                {
-                                    if (Points[0].X + 1 <= CurrentSprite.Width * 8)
-                                    {
-                                        if (GetByte(Points[0].X + 1, Points[0].Y) == ColorIndex)
-                                        {
-                                            #region Code
-                                            Points.Add(new Point(Points[0].X + 1, Points[0].Y));
-                                            SetByte(Points[0].X + 1, Points[0].Y, selectedColor);
-
-
-                                            #endregion
-                                        }
-                                    }
-
-                                    if (Points[0].X - 1 >= 0)
-                                    {
-                                        if (GetByte(Points[0].X - 1, Points[0].Y) == ColorIndex)
-                                        {
-                                            #region Code
-                                            //                                 SpriteBatchFillRectangle(
-                                            //new Rectangle(
-                                            // (Points[0].X - 1) * zoom,
-                                            // (Points[0].Y) * zoom,
-                                            //  zoom, zoom), sprite.Palette.Colors[selectedColor].Color);
-
-                                            Points.Add(new Point(Points[0].X - 1, Points[0].Y));
-                                            SetByte(Points[0].X - 1, Points[0].Y, selectedColor);
-
-                                            #endregion
-                                        }
-                                    }
-
-                                    if (Points[0].Y + 1 <= CurrentSprite.Height * 8)
-                                    {
-                                        if (GetByte(Points[0].X, Points[0].Y + 1) == ColorIndex)
-                                        {
-                                            #region Code
-                                            //SpriteBatchFillRectangle(
-                                            //new Rectangle(
-                                            //(Points[0].X) * zoom,
-                                            //(Points[0].Y + 1) * zoom,
-                                            //zoom, zoom), sprite.Palette.Colors[selectedColor].Color); 
-                                            Points.Add(new Point(Points[0].X, Points[0].Y + 1));
-                                            SetByte(Points[0].X, Points[0].Y + 1, selectedColor);
-
-                                            #endregion
-                                        }
-                                    }
-
-                                    if (Points[0].Y - 1 >= 0)
-                                    {
-                                        if (GetByte(Points[0].X, Points[0].Y - 1) == ColorIndex)
-                                        {
-                                            #region Code
-                                            //SpriteBatchFillRectangle(
-                                            //new Rectangle(
-                                            //(Points[0].X) * zoom,
-                                            //(Points[0].Y - 1) * zoom,
-                                            //zoom, zoom), sprite.Palette.Colors[selectedColor].Color);
-
-                                            Points.Add(new Point(Points[0].X, Points[0].Y - 1));
-                                            SetByte(Points[0].X, Points[0].Y - 1, selectedColor);
-
-                                            #endregion
-                                        }
-                                    }
-
-                                    Points.RemoveAt(0);
-                                }
-
-                                bitmap = new Bitmap(CurrentSprite.Width * 8, CurrentSprite.Height * 8, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-                                Draw.uDrawData(ref bitmap, CurrentSprite.ImageData, CurrentSprite.Palette, new Size(CurrentSprite.Width, CurrentSprite.Height));
-                                this.EditBox.Image = bitmap;
-                                this.EditBox.BackColor = CurrentSprite.Palette.Colors[0].Color;
-
-                                if (selectedColor == 0)
-                                {
-                                    this.EditBox.Invalidate();
-                                }
-
-                            }
-
                         }
-                        #endregion
-
-                        if (Modified != null)
+                        else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
                         {
-                            Modified(this, new EventArgs());
+                            #region SetData256
+                            CurrentSprite.ImageData[pos] = selectedColor;
+                            #endregion
                         }
                     }
-                    else if (this.Mode == EditMode.Eyedropper)
-                    {
-                        #region Eyedropper
-
-                        if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
-                           mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
-                        {
-                            selectedColor = GetByte(mouse.X, mouse.Y);
-                            
-
-                            Graphics gx = Graphics.FromImage(RulerX.BackgroundImage);
-
-                            gx.DrawRectangle(Pens.Gray, 1, 1, 12, 12);
-                            gx.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[selectedColor].Color), 3, 3, 9, 9);
-                            RulerX.Refresh();
-
-                            if (this.ParentSelectColor != null && this.ParentSelectColor.IsDisposed == false)
-                            {
-                                ParentSelectColor.Refresh();
-
-
-                            }
-                        }
-
-                        #endregion
-                    }
-
-
-
-                    EditBox.Invalidate();
-                    //EditBox.Image = bitmap;
-
-                #endregion
-
-                    
                 }
 
-                
+
+                if (selectedColor != 0)
+                {
+
+                    g.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[selectedColor].Color),
+                        r.X,
+                        r.Y,
+                        r.Width,
+                        r.Height);
+                }
+                else if (selectedColor == 0)
+                {
+                    g.FillRectangle(new SolidBrush(Color.Transparent),
+                        r.X,
+                        r.Y,
+                        r.Width,
+                        r.Height);
+                }
             }
-            
+            #endregion
+
+            if (Modified != null)
+            {
+                Modified(this, new EventArgs());
+            }
+        }
+        void BucketFunction(Graphics g, Point mouse)
+        {
+            #region Bucket
+            if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
+               mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
+            {
+                g.Dispose();
+
+                int pos = Position2Index(new Size(this.CurrentSprite.Width * 8, this.CurrentSprite.Height * 8), this.EditBox.PointToClient(Cursor.Position), CurrentSprite.Type);
+
+                byte ColorIndex;
+                #region GetColorIndex
+                if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
+                    ColorIndex = GetHalfByteFromIndex(pos, mouse.X);
+                else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
+                    ColorIndex = CurrentSprite.ImageData[pos];
+                else
+                    throw new Exception("Non-supported sprite type.");
+                #endregion
+
+                if (selectedColor != ColorIndex)
+                {
+                    #region SetInitialPixel
+                    if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
+                    {
+                        SetHalfByteFromIndex(pos, mouse.X, selectedColor);
+                    }
+                    else if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
+                    {
+                        CurrentSprite.ImageData[pos] = selectedColor;
+                    }
+                    #endregion
+                    List<Point> Points = new List<Point>();
+                    Points.Add(mouse);
+
+                    while (Points.Count != 0)
+                    {
+                        if (Points[0].X + 1 <= CurrentSprite.Width * 8)
+                        {
+                            if (GetByte(Points[0].X + 1, Points[0].Y) == ColorIndex)
+                            {
+                                #region Code
+                                Points.Add(new Point(Points[0].X + 1, Points[0].Y));
+                                SetByte(Points[0].X + 1, Points[0].Y, selectedColor);
+
+
+                                #endregion
+                            }
+                        }
+
+                        if (Points[0].X - 1 >= 0)
+                        {
+                            if (GetByte(Points[0].X - 1, Points[0].Y) == ColorIndex)
+                            {
+                                #region Code
+                                //                                 SpriteBatchFillRectangle(
+                                //new Rectangle(
+                                // (Points[0].X - 1) * zoom,
+                                // (Points[0].Y) * zoom,
+                                //  zoom, zoom), sprite.Palette.Colors[selectedColor].Color);
+
+                                Points.Add(new Point(Points[0].X - 1, Points[0].Y));
+                                SetByte(Points[0].X - 1, Points[0].Y, selectedColor);
+
+                                #endregion
+                            }
+                        }
+
+                        if (Points[0].Y + 1 <= CurrentSprite.Height * 8)
+                        {
+                            if (GetByte(Points[0].X, Points[0].Y + 1) == ColorIndex)
+                            {
+                                #region Code
+                                //SpriteBatchFillRectangle(
+                                //new Rectangle(
+                                //(Points[0].X) * zoom,
+                                //(Points[0].Y + 1) * zoom,
+                                //zoom, zoom), sprite.Palette.Colors[selectedColor].Color); 
+                                Points.Add(new Point(Points[0].X, Points[0].Y + 1));
+                                SetByte(Points[0].X, Points[0].Y + 1, selectedColor);
+
+                                #endregion
+                            }
+                        }
+
+                        if (Points[0].Y - 1 >= 0)
+                        {
+                            if (GetByte(Points[0].X, Points[0].Y - 1) == ColorIndex)
+                            {
+                                #region Code
+                                //SpriteBatchFillRectangle(
+                                //new Rectangle(
+                                //(Points[0].X) * zoom,
+                                //(Points[0].Y - 1) * zoom,
+                                //zoom, zoom), sprite.Palette.Colors[selectedColor].Color);
+
+                                Points.Add(new Point(Points[0].X, Points[0].Y - 1));
+                                SetByte(Points[0].X, Points[0].Y - 1, selectedColor);
+
+                                #endregion
+                            }
+                        }
+
+                        Points.RemoveAt(0);
+                    }
+
+                    bitmap = new Bitmap(CurrentSprite.Width * 8, CurrentSprite.Height * 8, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+                    Draw.uDrawData(ref bitmap, CurrentSprite.ImageData, CurrentSprite.Palette, new Size(CurrentSprite.Width, CurrentSprite.Height));
+                    this.EditBox.Image = bitmap;
+                    this.EditBox.BackColor = CurrentSprite.Palette.Colors[0].Color;
+
+                    if (selectedColor == 0)
+                    {
+                        this.EditBox.Invalidate();
+                    }
+
+                }
+
+            }
+            #endregion
+
+            if (Modified != null)
+            {
+                Modified(this, new EventArgs());
+            }
+        }
+        void EyedropFunction(Point mouse)
+        {
+            #region Eyedropper
+
+            if (mouse.X >= 0 && mouse.X < CurrentSprite.Width * 8 &&
+               mouse.Y >= 0 && mouse.Y < CurrentSprite.Height * 8)
+            {
+                selectedColor = GetByte(mouse.X, mouse.Y);
+
+
+                Graphics gx = Graphics.FromImage(RulerX.BackgroundImage);
+
+                gx.DrawRectangle(Pens.Gray, 1, 1, 12, 12);
+                gx.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[selectedColor].Color), 3, 3, 9, 9);
+                RulerX.Refresh();
+
+                if (this.ParentSelectColor != null && this.ParentSelectColor.IsDisposed == false)
+                {
+                    ParentSelectColor.Refresh();
+
+
+                }
+            }
+
+            #endregion
         }
 
         void SetByte(int x, int y, byte val)
@@ -1175,7 +1167,7 @@ namespace NSE_Framework.Controls
 
             if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
             {
-                if (x % 2 == 0)
+                if ((x & 0x1) == 0)
                 {
                     //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4) + val)[0];
                     CurrentSprite.ImageData[pos] = (byte)((CurrentSprite.ImageData[pos] & 0xf0) + val);
@@ -1202,7 +1194,7 @@ namespace NSE_Framework.Controls
         {
 
 
-            if (x % 2 == 0)
+            if ((x & 0x1) == 0)
             {
                 //CurrentSprite.ImageData[pos] = BitConverter.GetBytes(((CurrentSprite.ImageData[pos] >> 4) << 4) + val)[0];
 
@@ -1225,7 +1217,7 @@ namespace NSE_Framework.Controls
             int pos = Position2Index(new Size(this.CurrentSprite.Width * 8, this.CurrentSprite.Height * 8), new Point(x, y), CurrentSprite.Type, false);
             if (CurrentSprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
             {
-                if (x % 2 == 0)
+                if ((x & 0x1) == 0)
                 {
 
                     return (byte)(CurrentSprite.ImageData[pos] & 0x0F);
@@ -1251,7 +1243,7 @@ namespace NSE_Framework.Controls
         byte GetHalfByteFromIndex(int pos, int x)
         {
 
-            if (x % 2 == 0)
+            if ((x & 0x1) == 0)
             {
                 //return BitConverter.GetBytes(CurrentSprite.ImageData[pos] -
                 //    BitConverter.GetBytes((CurrentSprite.ImageData[pos] >> 4) << 4)[0])[0];
@@ -1285,19 +1277,19 @@ namespace NSE_Framework.Controls
             if (Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
             {
 
-                int r = (Position.Y - (Position.Y % 8)) / 2 * Size.Width;
-                r += (Position.X - (Position.X % 8)) * 4;
-                r += (Position.Y % 8) * 4;
-                r += (Position.X % 8) / 2;
+                int r = (Position.Y - (Position.Y & 8)) / 2 * Size.Width;
+                r += (Position.X - (Position.X & 8)) * 4;
+                r += (Position.Y & 8) * 4;
+                r += (Position.X & 8) / 2;
 
                 return Clamp(r, 0, Size.Width * Size.Height / 2 - 1); ;
             }
             else if (Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
             {
-                int r = (Position.Y - (Position.Y % 8)) * Size.Width;
-                r += (Position.X - (Position.X % 8)) * 8;
-                r += (Position.Y % 8) * 8;
-                r += (Position.X % 8);
+                int r = (Position.Y - (Position.Y & 8)) * Size.Width;
+                r += (Position.X - (Position.X & 8)) * 8;
+                r += (Position.Y & 8) * 8;
+                r += (Position.X & 8);
 
                 return Clamp(r, 0, Size.Width * Size.Height - 1);
             }
