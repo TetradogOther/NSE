@@ -39,7 +39,7 @@ namespace NSE2
             {
                 if (SR != value)
                 {
-                    if (value == false)
+                    if (!value)
                     {
 
                         if (MessageBox.Show(this, "WARNING:\n\nDisabling SafetyRepointing may cause freezing in game, while attempting to load stored Lz compressed data.", "Notice:", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
@@ -125,7 +125,7 @@ namespace NSE2
 
         public void LoadRom(string openFileName)
         {
-            if (System.IO.File.Exists(openFileName) == true && !string.IsNullOrEmpty(openFileName))
+            if (System.IO.File.Exists(openFileName) && !string.IsNullOrEmpty(openFileName))
             {
                 this.filename = openFileName;
                 this.Read = new NSE_Framework.Read(openFileName);
@@ -134,7 +134,7 @@ namespace NSE2
 
                 if (this.SelectColor != null)
                 {
-                    if (SelectColor.Visible == true)
+                    if (SelectColor.Visible)
                     {
                         this.SelectColor.Close();
                     }
@@ -161,7 +161,7 @@ namespace NSE2
 
         public void LoadImage(string ImageFileName)
         {
-            if (System.IO.File.Exists(ImageFileName) == true && !string.IsNullOrEmpty(ImageFileName))
+            if (System.IO.File.Exists(ImageFileName) && !string.IsNullOrEmpty(ImageFileName))
             {
                 NSE_Framework.Data.Sprite imageSprite = NSE_Framework.IO.Import.ImportImage(ImageFileName);
 
@@ -179,7 +179,7 @@ namespace NSE2
 
         public void LoadSprite(string SpriteFileName)
         {
-            if (System.IO.File.Exists(SpriteFileName) == true && !string.IsNullOrEmpty(SpriteFileName))
+            if (System.IO.File.Exists(SpriteFileName) && !string.IsNullOrEmpty(SpriteFileName))
             {
                 NSE_Framework.IO.SpriteLibrary spriteLibrary = NSE_Framework.IO.Import.ImportSpriteLibrary(SpriteFileName);
 
@@ -192,7 +192,7 @@ namespace NSE2
 
                 LogWriter.LogMessage("Opened Sprite " + SpriteFileName);
 
-                if (Program.MainForm.Splash.Visible == true)
+                if (Program.MainForm.Splash.Visible)
                 {
                     Program.MainForm.Splash.Visible = false;
                 }
@@ -283,7 +283,7 @@ namespace NSE2
                 this.BookMarkFile = "BookMarks";
             }
 
-            if(File.Exists(Application.StartupPath + "\\Core\\BookMarks\\" + this.BookMarkFile + ".nbmx") == true)
+            if(File.Exists(Application.StartupPath + "\\Core\\BookMarks\\" + this.BookMarkFile + ".nbmx"))
             {
                 Program.BookMarkTree = NSE_Framework.IO.Import.ImportBookMarkTree(Application.StartupPath + "\\Core\\BookMarks\\" + this.BookMarkFile + ".nbmx");
             }
@@ -373,9 +373,9 @@ namespace NSE2
                     SelectColor = new SelectColorForm();
                     SelectColor.Dock = DockStyle.Right;
                 }
-                if (SelectColor.Visible == false)
+                if (!SelectColor.Visible)
                 {
-                    if (this.SelectColor.IsDisposed == true)
+                    if (this.SelectColor.IsDisposed )
                     {
                         this.SelectColor = new SelectColorForm();
                     }
@@ -400,7 +400,7 @@ namespace NSE2
                 this.ToolStrip.Enabled = false;
                 if (SelectColor != null)
                 {
-                    if (SelectColor.Visible == true)
+                    if (SelectColor.Visible )
                     {
                         this.SelectColor.Close();
                     }
@@ -442,7 +442,7 @@ namespace NSE2
                         this.ToolStrip.Enabled = false;
                         if (SelectColor != null)
                         {
-                            if (SelectColor.Visible == true)
+                            if (SelectColor.Visible )
                             {
                                 this.SelectColor.Close();
                             }
@@ -469,7 +469,7 @@ namespace NSE2
                     this.ToolStrip.Enabled = false;
                     if (SelectColor != null)
                     {
-                        if (SelectColor.Visible == true)
+                        if (SelectColor.Visible )
                         {
                             this.SelectColor.Close();
                         }
@@ -489,7 +489,7 @@ namespace NSE2
                 this.ToolStrip.Enabled = false;
                 if (SelectColor != null)
                 {
-                    if (SelectColor.Visible == true)
+                    if (SelectColor.Visible )
                     {
                         this.SelectColor.Close();
                     }
@@ -502,12 +502,12 @@ namespace NSE2
         {
             if (currentEditor != null)
             {
-                if (MenuItemBackcolor.Checked == true)
+                if (MenuItemBackcolor.Checked )
                 {
                     MenuItemBackcolor.Checked = false;
                     currentEditor.SpriteBackColor = false;
                 }
-                else if (MenuItemBackcolor.Checked == false)
+                else if (!MenuItemBackcolor.Checked)
                 {
                     MenuItemBackcolor.Checked = true;
                     currentEditor.SpriteBackColor = true;
@@ -811,7 +811,7 @@ namespace NSE2
             MenuItem mn = new MenuItem(Name, importEvent);
             MenuItemImport.MenuItems.Add(mn);
 
-            if (MenuItemImportBar.Visible == false)
+            if (!MenuItemImportBar.Visible)
             {
                 MenuItemImportBar.Visible = true;
             }
@@ -821,7 +821,7 @@ namespace NSE2
             MenuItem mn = new MenuItem(Name, exportEvent);
             MenuItemExport.MenuItems.Add(mn);
 
-            if (MenuItemExportBar.Visible == false)
+            if (!MenuItemExportBar.Visible )
             {
                 MenuItemExportBar.Visible = true;
             }
@@ -861,9 +861,9 @@ namespace NSE2
             {
                 SelectColor = new SelectColorForm();
             }
-            if (SelectColor.Visible == false)
+            if (!SelectColor.Visible)
             {
-                if (this.SelectColor.IsDisposed == true)
+                if (this.SelectColor.IsDisposed )
                 {
                     this.SelectColor = new SelectColorForm();
                 }
@@ -896,12 +896,12 @@ namespace NSE2
         {
             if (Filename != null)
             {
-                if (Program.Navigate.IsDisposed == true)
+                if (Program.Navigate.IsDisposed )
                 {
                     Program.Navigate = new Navigate();
                 }
 
-                if (Program.Navigate.Visible == false)
+                if (!Program.Navigate.Visible)
                 {
                     Program.Navigate.Show(Program.MainForm);
                 }
@@ -952,7 +952,7 @@ namespace NSE2
                 //}
                 
 
-                if (ToolStripBrush.Checked == false)
+                if (!ToolStripBrush.Checked)
                 {
                     currentEditor.Mode = NSE_Framework.Controls.Editor.EditMode.Brush;
                     ToolStripBrush.Checked = true;
@@ -1033,7 +1033,7 @@ namespace NSE2
                 {
                     //Regular Sprite
                     #region RegularSprite
-                    if (currentEditor.CurrentSprite.UniqueImage == true && !string.IsNullOrEmpty(filename))
+                    if (currentEditor.CurrentSprite.UniqueImage  && !string.IsNullOrEmpty(filename))
                     {
                         //Check to make sure somebody didn't mess up while making a plug-in
                         if (NSE_Framework.Data.Lz77.CheckLz77(this.Read, currentEditor.CurrentSprite.ImageOffset, NSE_Framework.Data.CheckLz77Type.Sprite) == -1)
@@ -1052,7 +1052,7 @@ namespace NSE2
                             MessageBox.Show(this, "So... I have good news and bad news: \n\n-The BAD news is that you were about to screw-up your game pretty badly (Puking crap data all-over your shiny ROM).\n-The GOOD news is that I just saved you from hair-pulling agony.\n\nI recommend you EXPORT any unsaved data to a sprite library (including this sprite), and REPORT the problem.\nIf a plugin caused this, now would be a good time to close it (after you export any unsaved data) and stop using it  until a fix is found.\n\nYou're welcome :)", "Trust-Fall", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
-                    else if (currentEditor.CurrentSprite.UniqueImage == false || string.IsNullOrEmpty(filename))
+                    else if (!currentEditor.CurrentSprite.UniqueImage || string.IsNullOrEmpty(filename))
                     {
                         // note: These are ONLY sprites opened through an "EDITOR FORM"
                         // editor forms are opened through "OPEN SPRITE" or through a plugin using "NewEditorForm"
@@ -1151,7 +1151,7 @@ namespace NSE2
                     byte[] data = NSE_Framework.Data.Lz77.CompressBytes(currentEditor.CurrentSprite.ImageData);
 
                     //Next we check if this image was opened from the ROM
-                    if (currentEditor.CurrentSprite.UniqueImage == true)
+                    if (currentEditor.CurrentSprite.UniqueImage )
                     {
                         #region InternalImage
                         //Build the saveform
@@ -1195,7 +1195,7 @@ namespace NSE2
                         }
                         #endregion
                     }
-                    else if (currentEditor.CurrentSprite.UniqueImage == false)
+                    else if (!currentEditor.CurrentSprite.UniqueImage)
                     {
                         #region ExternalImage
                         InsertForm iForm = new InsertForm(this.Write, data);
@@ -1265,7 +1265,7 @@ namespace NSE2
 
         private void MainForm_Key(object sender, KeyEventArgs e)
         {
-            if (e.Control == true)
+            if (e.Control )
             {
                 CtrlDown = true;
             }
@@ -1317,7 +1317,7 @@ namespace NSE2
 
                     string frameName = "Frame 0";
 
-                    if (currentEditor.Sprites[0].UniqueImage == true)
+                    if (currentEditor.Sprites[0].UniqueImage )
                     {
                         frameName += " - " + currentEditor.CurrentSprite.ImageOffset.ToString("X2");
                     }
@@ -1338,7 +1338,7 @@ namespace NSE2
                     {
                         if (currentEditor.Sprites[i].Height != Library.Sprites[ss].Height ||
                             currentEditor.Sprites[i].Width != Library.Sprites[ss].Width ||
-                            ComparePalettes(Library.Sprites[ss].Palette, currentEditor.Sprites[i].Palette) == false)
+                            !ComparePalettes(Library.Sprites[ss].Palette, currentEditor.Sprites[i].Palette))
                         {
                             fn = 0;
                             ss++;
@@ -1348,7 +1348,7 @@ namespace NSE2
 
                         frameName = "Frame " + fn.ToString();
 
-                        if (currentEditor.Sprites[i].UniqueImage == true)
+                        if (currentEditor.Sprites[i].UniqueImage )
                         {
                             frameName += " - " + currentEditor.Sprites[i].ImageOffset.ToString("X2");
                         }
@@ -1429,7 +1429,7 @@ namespace NSE2
 
         private void MenuItemEnableBS_Click(object sender, EventArgs e)
         {
-            if (MenuItemEnableBS.Checked == true)
+            if (MenuItemEnableBS.Checked )
             {
                 MenuItemEnableBS.Checked = false;
                 BookMarkScripting = false;
@@ -1443,7 +1443,7 @@ namespace NSE2
 
         private void MenuItemAdvancedRePt_Click(object sender, EventArgs e)
         {
-            if (MenuItemAdvancedRePt.Checked == true)
+            if (MenuItemAdvancedRePt.Checked )
             {
                 MenuItemAdvancedRePt.Checked = false;
                 AdvancedRepointing = false;
@@ -1457,7 +1457,7 @@ namespace NSE2
 
         private void MenuItemSafetyRepointing_Click(object sender, EventArgs e)
         {
-            if (MenuItemSafetyRepointing.Checked == true)
+            if (MenuItemSafetyRepointing.Checked )
             {
                 if(MessageBox.Show(this, "WARNING:\n\nDisabling SafetyRepointing may cause freezing in game, while attempting to load stored Lz compressed data.","Notice:",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
                 {
@@ -1504,9 +1504,9 @@ namespace NSE2
                 {
                     SelectColor = new SelectColorForm();
                 }
-                if (SelectColor.Visible == false)
+                if (!SelectColor.Visible)
                 {
-                    if (this.SelectColor.IsDisposed == true)
+                    if (this.SelectColor.IsDisposed )
                     {
                         this.SelectColor = new SelectColorForm();
                     }
@@ -1627,7 +1627,7 @@ namespace NSE2
                 string exstension = System.IO.Path.GetExtension(file).ToLower();
                 if (exstension == ".gba" || exstension == ".agb" || exstension == ".bin")
                 {
-                    if (lr == false)
+                    if (!lr)
                     {
                         if (MessageBox.Show(this, "Load the ROM: " + file, "Notice:", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                         {

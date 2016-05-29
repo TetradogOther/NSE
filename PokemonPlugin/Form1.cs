@@ -102,7 +102,7 @@ namespace PokemonPlugin
 
                         MAX = 439;
 
-                        if (NSE2.Program.MainForm.SafetyRepointing == false)
+                        if (!NSE2.Program.MainForm.SafetyRepointing)
                         {
                             if (MessageBox.Show(this, "It seems that SafetyRepointing is disabled:\nIt's suggested that you enable SafetyRepointing for best results.\nEnable SafetyRepointing?", "Notice:", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
                             {
@@ -320,7 +320,7 @@ namespace PokemonPlugin
         }
         private void IndexText_TextChanged(object sender, EventArgs e)
         {
-            if (CanNavigate == true)
+            if (CanNavigate )
             {
                 CanNavigate = false;
 

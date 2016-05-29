@@ -68,7 +68,7 @@ namespace PokemonPlugin
 
         public override void Load()
         {
-            if (PokemonPlugin.Program.opened == false)
+            if (!PokemonPlugin.Program.opened)
             {
                 m_form = new Form1(this.Host);
                 PokemonPlugin.Program.opened = true;

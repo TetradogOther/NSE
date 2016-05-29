@@ -207,7 +207,7 @@ namespace NSE_Framework.Data
 
                             bool Compatible = true;
 
-                            while (Compatible == true && length < 18 && length + ActualPosition < Data.Length - 1)
+                            while (Compatible  && length < 18 && length + ActualPosition < Data.Length - 1)
                             {
                                 length++;
                                 if (Data[ActualPosition + length] != Data[ActualPosition - start + length])
@@ -323,7 +323,7 @@ namespace NSE_Framework.Data
                             {
                                 int _match = 2;
                                 bool Compatible = true;
-                                while (Compatible == true && _match < 18 && _match + Index < Data.Length - 1)
+                                while (Compatible  && _match < 18 && _match + Index < Data.Length - 1)
                                 {
                                     _match++;
                                     if (Data[Index + _match] != Data[Index - pos + _match])

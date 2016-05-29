@@ -40,7 +40,7 @@ namespace NSE2
                     GroupEditPreview.Enabled = true;
                     GroupEditSize.Enabled = true;
 
-                    if (value.Commands.Count != 0 && Program.MainForm.BookMarkScripting == true)
+                    if (value.Commands.Count != 0 && Program.MainForm.BookMarkScripting )
                     {
                         Decoder.Decode(ref selectedBookMark);
                     }
@@ -141,7 +141,7 @@ namespace NSE2
 
             int spriteLz = CheckLz77(spriteOffset, CheckLz77Type.Sprite);;
             int paletteLz;
-            if (NavigateGray.Checked == true)
+            if (NavigateGray.Checked )
             {
                 paletteLz =-1;
                 paletteOffset = -1;
@@ -158,7 +158,7 @@ namespace NSE2
 
 
             byte[] spriteData;
-            if (spriteLz != -1 && NavigateLz77.Checked == true)
+            if (spriteLz != -1 && NavigateLz77.Checked )
             {
                 NavigateLz77.Enabled = true;
                 spriteData = Program.MainForm.Read.ReadLz77Bytes(spriteOffset, out spriteLz);
@@ -200,7 +200,7 @@ namespace NSE2
                 #region CheckTypePalette
                 if (ComboBoxNavigateColors.SelectedIndex == 0)
                 {
-                    if (NavigateGray.Checked == false)
+                    if (!NavigateGray.Checked)
                     {
                         paletteData = Program.MainForm.Read.ReadBytes(paletteOffset, 32);
                     }
@@ -221,7 +221,7 @@ namespace NSE2
                 }
                 else if (ComboBoxNavigateColors.SelectedIndex == 1)
                 {
-                    if (NavigateGray.Checked == false)
+                    if (!NavigateGray.Checked)
                     {
                         paletteData = Program.MainForm.Read.ReadBytes(paletteOffset, 512);
                     }
@@ -300,7 +300,7 @@ namespace NSE2
             }
 
             string pal = "GrayScale";
-            if (s.UniquePalette == true)
+            if (s.UniquePalette )
             {
                 pal = "0x" + s.PaletteOffset.ToString("X");
             }
@@ -308,7 +308,7 @@ namespace NSE2
             Program.MainForm.LogWriter.LogMessage("Navigated 0x" +
                 s.ImageOffset.ToString("X") + " " + pal + " : " + s.Width.ToString() +", " + s.Height.ToString());
 
-            if (Program.MainForm.Splash.Visible == true)
+            if (Program.MainForm.Splash.Visible )
             {
                 Program.MainForm.Splash.Visible = false;
             }
@@ -331,7 +331,7 @@ namespace NSE2
             else if (sender.GetType() == typeof(ComboBox))
             {
                 ComboBox c = (ComboBox)sender;
-                if (c.Text.Length > 0 && c.Text != "0" && c.Enabled == true)
+                if (c.Text.Length > 0 && c.Text != "0" && c.Enabled )
                 {
                     show = true;
                     
@@ -346,7 +346,7 @@ namespace NSE2
                 show = true;
             }
 
-            if (show == true)
+            if (show )
             {
                 int spriteOffset = int.Parse(TextboxNavigateImage.Text, System.Globalization.NumberStyles.HexNumber);
                 int paletteOffset = int.Parse(TextboxNavigatePalette.Text, System.Globalization.NumberStyles.HexNumber);
@@ -364,7 +364,7 @@ namespace NSE2
 
             }
 
-            if (show == true && _Refresh == true)
+            if (show  && _Refresh )
             {
                 _Refresh = false;
                 int spriteOffset = int.Parse(TextboxNavigateImage.Text, System.Globalization.NumberStyles.HexNumber);
@@ -401,12 +401,12 @@ namespace NSE2
                 
                  
 
-                if (NavigateGray.Checked == true)
+                if (NavigateGray.Checked )
                 {
                     paletteLz = -1;
                 }
 
-                if (NavigateGray.Checked == true)
+                if (NavigateGray.Checked )
                 {
                     paletteOffset = -1;
                 }
@@ -423,7 +423,7 @@ namespace NSE2
                 }
 
                 byte[] spriteData;
-                if (spriteLz != -1 && NavigateLz77.Checked == true)
+                if (spriteLz != -1 && NavigateLz77.Checked )
                 {
                     NavigateLz77.Enabled = true;
                     spriteData = Program.MainForm.Read.ReadLz77Bytes(spriteOffset, out spriteLz);
@@ -464,7 +464,7 @@ namespace NSE2
                         {
                             if (SelectedBookMark != null)
                             {
-                                if (ComboBoxNavigateWidth.Items.Contains(SelectedBookMark.Width.ToString()) == true)
+                                if (ComboBoxNavigateWidth.Items.Contains(SelectedBookMark.Width.ToString()) )
                                 {
                                     ComboBoxNavigateWidth.SelectedIndex = ComboBoxNavigateWidth.Items.IndexOf(SelectedBookMark.Width.ToString());
                                 }
@@ -570,7 +570,7 @@ namespace NSE2
                     #region CheckTypePalette
                     if (ComboBoxNavigateColors.SelectedIndex == 0)
                     {
-                        if (NavigateGray.Checked == false)
+                        if (!NavigateGray.Checked)
                         {
                             paletteData = Program.MainForm.Read.ReadBytes(paletteOffset, 32);
                         }
@@ -589,7 +589,7 @@ namespace NSE2
                     }
                     else if (ComboBoxNavigateColors.SelectedIndex == 1)
                     {
-                        if (NavigateGray.Checked == false)
+                        if (!NavigateGray.Checked)
                         {
                             paletteData = Program.MainForm.Read.ReadBytes(paletteOffset, 512);
                         }
@@ -866,7 +866,7 @@ namespace NSE2
             else if (sender.GetType() == typeof(ComboBox))
             {
                 ComboBox c = (ComboBox)sender;
-                if (c.Text.Length > 0 && c.Text != "0" && c.Enabled == true)
+                if (c.Text.Length > 0 && c.Text != "0" && c.Enabled )
                 {
                     show = true;
                 }
@@ -880,7 +880,7 @@ namespace NSE2
                 show = true;
             }
 
-            if (show == true)
+            if (show )
             {
                 int spriteOffset = int.Parse(TextBoxEditImage.Text, System.Globalization.NumberStyles.HexNumber);
                 int paletteOffset = int.Parse(TextBoxEditPalette.Text, System.Globalization.NumberStyles.HexNumber);
@@ -896,7 +896,7 @@ namespace NSE2
                 }
 
             }
-            if (show == true && b_Refresh == true)
+            if (show  && b_Refresh )
             {
                 b_Refresh = false;
 
@@ -937,12 +937,12 @@ namespace NSE2
                     
 
 
-                if (EditGray.Checked == true)
+                if (EditGray.Checked )
                 {
                     paletteLz = -1;
                 }
 
-                if (EditGray.Checked == true)
+                if (EditGray.Checked )
                 {
                     paletteOffset = -1;
                 }
@@ -963,7 +963,7 @@ namespace NSE2
                 selectedBookMark.SpriteType = checkType;
 
                 byte[] spriteData;
-                if (spriteLz != -1 && EditLz77.Checked == true)
+                if (spriteLz != -1 && EditLz77.Checked )
                 {
                     EditLz77.Enabled = true;
                     spriteData = Program.MainForm.Read.ReadLz77Bytes(spriteOffset, out spriteLz);
@@ -1005,7 +1005,7 @@ namespace NSE2
                         {
                             if (SelectedBookMark != null)
                             {
-                                if (ComboBoxEditWidth.Items.Contains(SelectedBookMark.Width.ToString()) == true)
+                                if (ComboBoxEditWidth.Items.Contains(SelectedBookMark.Width.ToString()) )
                                 {
                                     ComboBoxEditWidth.SelectedIndex = ComboBoxEditWidth.Items.IndexOf(SelectedBookMark.Width.ToString());
                                 }
@@ -1112,7 +1112,7 @@ namespace NSE2
                     #region CheckTypePalette
                     if (ComboBoxEditColors.SelectedIndex == 0)
                     {
-                        if (EditGray.Checked == false)
+                        if (!EditGray.Checked)
                         {
                             paletteData = Program.MainForm.Read.ReadBytes(paletteOffset, 32);
                         }
@@ -1131,7 +1131,7 @@ namespace NSE2
                     }
                     else if (ComboBoxEditColors.SelectedIndex == 1)
                     {
-                        if (EditGray.Checked == false)
+                        if (!EditGray.Checked)
                         {
                             paletteData = Program.MainForm.Read.ReadBytes(paletteOffset, 512);
                         }

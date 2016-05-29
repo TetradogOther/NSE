@@ -34,7 +34,7 @@ namespace NSE2
 
                 for (int x = 0; x < offsets.Count; x++)
                 {
-                    if (CheckedList.GetItemChecked(x) == true)
+                    if (CheckedList.GetItemChecked(x) )
                     {
                         i.Add(offsets[x]);
                     }

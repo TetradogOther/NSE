@@ -177,7 +177,7 @@ namespace NSE2
                 {
                     //Regular Sprite
                     byte[] pb = this.MainSelectColor.Editor.CurrentSprite.Palette.GetGBABytes;
-                    if (this.MainSelectColor.Editor.CurrentSprite.UniquePalette == true)
+                    if (this.MainSelectColor.Editor.CurrentSprite.UniquePalette )
                     {
                         Program.MainForm.Write.WriteBytes(
                             pb,
@@ -282,7 +282,7 @@ namespace NSE2
 
         private void TextBoxGBA_TextChanged(object sender, EventArgs e)
         {
-            if (((TextBox)sender).Focused == true)
+            if (((TextBox)sender).Focused )
             {
                 if (((TextBox)sender).TextLength == 4)
                 {

@@ -71,7 +71,7 @@ namespace NSE2
             this.BorderPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BorderPanel.Location = new System.Drawing.Point(0, 46);
             this.BorderPanel.Name = "BorderPanel";
-            this.BorderPanel.Size = new System.Drawing.Size(494, 186);
+            this.BorderPanel.Size = new System.Drawing.Size(484, 176);
             this.BorderPanel.TabIndex = 2;
             // 
             // OpenSrite
@@ -197,9 +197,9 @@ namespace NSE2
             this.BottomPanel.BackgroundImage = global::NSE2.Properties.Resources.BackGround;
             this.BottomPanel.Controls.Add(this.CloseCheck);
             this.BottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BottomPanel.Location = new System.Drawing.Point(0, 232);
+            this.BottomPanel.Location = new System.Drawing.Point(0, 222);
             this.BottomPanel.Name = "BottomPanel";
-            this.BottomPanel.Size = new System.Drawing.Size(494, 20);
+            this.BottomPanel.Size = new System.Drawing.Size(484, 20);
             this.BottomPanel.TabIndex = 12;
             // 
             // CloseCheck
@@ -226,7 +226,7 @@ namespace NSE2
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(494, 46);
+            this.TopPanel.Size = new System.Drawing.Size(484, 46);
             this.TopPanel.TabIndex = 11;
             // 
             // Version
@@ -266,7 +266,7 @@ namespace NSE2
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(494, 252);
+            this.ClientSize = new System.Drawing.Size(484, 242);
             this.ControlBox = false;
             this.Controls.Add(this.BorderPanel);
             this.Controls.Add(this.TopPanel);

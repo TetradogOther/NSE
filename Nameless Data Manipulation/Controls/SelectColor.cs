@@ -26,7 +26,7 @@ namespace NSE_Framework.Controls
             get { return trans; }
             set
             {
-                if (value == true)
+                if (value )
                 {
                     base.BackgroundImage = Properties.Resources.transparent;
                 }
@@ -126,7 +126,7 @@ namespace NSE_Framework.Controls
                 }
                 else
                 {
-                    if (trans == true)
+                    if (trans )
                     {
                         base.BackgroundImage = Properties.Resources.transparent;
                     }
@@ -162,7 +162,7 @@ namespace NSE_Framework.Controls
 
             Point px = new Point((Index % 16) * a, (Index - (Index % 16)) / 16 * b);
             
-            if (Colors.IsDisposed == true)
+            if (Colors.IsDisposed )
             {
 
             }
@@ -220,7 +220,7 @@ namespace NSE_Framework.Controls
 
             Point px = new Point((Index % 16) * a, (Index - (Index % 16)) / 16 * b);
             Colors.Refresh();
-            if(Colors.IsDisposed == true)
+            if(Colors.IsDisposed )
             {
                 throw new Exception("The Colors Component of this select color control has been disposed.\nPlease report to Link12552. -Thanks!");               
             }

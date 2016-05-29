@@ -211,7 +211,7 @@ namespace NSE_Framework.Controls
                             CurrentIndexChanged(this, new EventArgs());
                         }
 
-                        if (this.ParentSelectColor != null && this.ParentSelectColor.IsDisposed == false)
+                        if (this.ParentSelectColor != null && !this.ParentSelectColor.IsDisposed)
                         {
                             this.ParentSelectColor.Redraw();
                         }
@@ -311,7 +311,7 @@ namespace NSE_Framework.Controls
                         gx.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[value].Color), 3, 3, 9, 9);
                         RulerX.Refresh();
 
-                        if (this.ParentSelectColor != null && this.ParentSelectColor.IsDisposed == false)
+                        if (this.ParentSelectColor != null && !this.ParentSelectColor.IsDisposed)
                         {
                             ParentSelectColor.Refresh();
                         }
@@ -327,7 +327,7 @@ namespace NSE_Framework.Controls
                         gx.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[value].Color), 3, 3, 9, 9);
                         RulerX.Refresh();
 
-                        if (this.ParentSelectColor != null && this.ParentSelectColor.IsDisposed == false)
+                        if (this.ParentSelectColor != null && !this.ParentSelectColor.IsDisposed )
                         {
                             ParentSelectColor.Refresh();
                         }
@@ -728,11 +728,11 @@ namespace NSE_Framework.Controls
             get { return backcolor; }
             set
             {
-                if (value == false)
+                if (!value)
                 {
                     EditBox.BackgroundImage = NSE_Framework.Properties.Resources.transparent;
                 }
-                else if (value == true)
+                else
                 {
                     EditBox.BackgroundImage = null;
                 }
@@ -773,7 +773,7 @@ namespace NSE_Framework.Controls
         private void Editor_Resize(object sender, EventArgs e)
         {
 
-                if (this.Size.IsEmpty == false)
+                if (!this.Size.IsEmpty)
                 {
                     AlignBox();
                     DrawRulers();
@@ -796,7 +796,7 @@ namespace NSE_Framework.Controls
 
         private void Editor_MouseHover(object sender, EventArgs e)
         {
-            if (hovering == false)
+            if (!hovering)
             {
                 RulerX.Refresh();
                 Graphics g = RulerX.CreateGraphics();
@@ -1150,7 +1150,7 @@ namespace NSE_Framework.Controls
                 gx.FillRectangle(new SolidBrush(CurrentSprite.Palette.Colors[selectedColor].Color), 3, 3, 9, 9);
                 RulerX.Refresh();
 
-                if (this.ParentSelectColor != null && this.ParentSelectColor.IsDisposed == false)
+                if (this.ParentSelectColor != null && !this.ParentSelectColor.IsDisposed)
                 {
                     ParentSelectColor.Refresh();
 
@@ -1268,7 +1268,7 @@ namespace NSE_Framework.Controls
         }
         int Position2Index(Size Size, Point Position, NSE_Framework.Data.Sprite.SpriteType Type, bool Normalize = true)
         {
-            if (Normalize == true)
+            if (Normalize )
                 NormalizePoint(ref Position);
 
             Position.X = Clamp(Position.X, 0, CurrentSprite.Width * 8 - 1);

@@ -21,7 +21,7 @@ namespace NSE2
 
         private void UserPreferences_Load(object sender, EventArgs e)
         {
-            if (Directory.Exists(Application.StartupPath + "\\Core\\BookMarks\\") == false)
+            if (!Directory.Exists(Application.StartupPath + "\\Core\\BookMarks\\") )
             {
                 Directory.CreateDirectory(Application.StartupPath + "\\Core\\BookMarks\\");
             }
@@ -34,11 +34,11 @@ namespace NSE2
                 {
                     ListBoxBookMarks.Items.Add(Path.GetFileNameWithoutExtension(file));
                 }
-                if (ListBoxBookMarks.Items.Contains(Program.MainForm.BookMarkFile) == true)
+                if (ListBoxBookMarks.Items.Contains(Program.MainForm.BookMarkFile) )
                 {
                     bool found = false;
                     int i = 0;
-                    while (found == false && i < ListBoxBookMarks.Items.Count)
+                    while (!found && i < ListBoxBookMarks.Items.Count)
                     {
                         if (files[i].Contains(Program.MainForm.BookMarkFile + ".nbmx"))
                         {
@@ -47,7 +47,7 @@ namespace NSE2
                         }
                         i++;
                     }
-                    if (found == false)
+                    if (!found)
                     {
                         ListBoxBookMarks.SelectedIndex = 0;
                     }
@@ -65,13 +65,13 @@ namespace NSE2
         {
             Program.MainForm.BookMarkFile = ListBoxBookMarks.SelectedItem.ToString();
 
-            if (File.Exists(Application.StartupPath + "\\Core\\BookMarks\\" + Program.MainForm.BookMarkFile + ".nbmx") == true)
+            if (File.Exists(Application.StartupPath + "\\Core\\BookMarks\\" + Program.MainForm.BookMarkFile + ".nbmx") )
             {
                 Program.BookMarkTree = NSE_Framework.IO.Import.ImportBookMarkTree(Application.StartupPath + "\\Core\\BookMarks\\" + Program.MainForm.BookMarkFile + ".nbmx");
                 Program.BookMarkTree.Name = Program.MainForm.BookMarkFile;
             }
 
-            if (Program.Navigate.Visible == true)
+            if (Program.Navigate.Visible )
             {
                 Program.Navigate.Close();
             }

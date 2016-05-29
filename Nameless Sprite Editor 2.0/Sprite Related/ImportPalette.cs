@@ -34,7 +34,7 @@ namespace NSE2
 
                 if (iDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK & iDialog.FileName != "")
                 {
-                    if (System.IO.File.Exists(iDialog.FileName) == true)
+                    if (System.IO.File.Exists(iDialog.FileName) )
                     {
                         string extension = Path.GetExtension(iDialog.FileName).Substring(1).ToLower();
 
@@ -217,7 +217,7 @@ namespace NSE2
                         Program.MainForm.currentEditor.CurrentSprite.Palette.Colors[i] = Colors[index * 16 + i];
                     }
                     Program.MainForm.currentEditor.Redraw();
-                    if(Program.MainForm.currentEditor.ParentSelectColor != null && Program.MainForm.currentEditor.ParentSelectColor.IsDisposed == false)
+                    if(Program.MainForm.currentEditor.ParentSelectColor != null && !Program.MainForm.currentEditor.ParentSelectColor.IsDisposed)
                     {
                         Program.MainForm.currentEditor.ParentSelectColor.Redraw();
                     }
@@ -233,7 +233,7 @@ namespace NSE2
                 {
                     Program.MainForm.currentEditor.CurrentSprite.Palette.Colors = Colors;
                     Program.MainForm.currentEditor.Redraw();
-                    if (Program.MainForm.currentEditor.ParentSelectColor != null && Program.MainForm.currentEditor.ParentSelectColor.IsDisposed == false)
+                    if (Program.MainForm.currentEditor.ParentSelectColor != null && !Program.MainForm.currentEditor.ParentSelectColor.IsDisposed)
                     {
                         Program.MainForm.currentEditor.ParentSelectColor.Redraw();
                     }

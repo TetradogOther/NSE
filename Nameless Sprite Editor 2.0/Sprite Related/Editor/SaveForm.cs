@@ -86,12 +86,12 @@ namespace NSE2
 
 
 
-                if (Program.MainForm.SafetyRepointing == true && this.SaveOffset % 4 == 0 || Program.MainForm.SafetyRepointing == false)
+                if (Program.MainForm.SafetyRepointing  && this.SaveOffset % 4 == 0 || !Program.MainForm.SafetyRepointing)
                 {
 
                     byte[] ExistingData = Program.MainForm.Read.ReadBytes(SaveOffset, Data.Length);
 
-                    if (IsFreeSpace(ExistingData, SaveOffset, OrigonalOffset, OrigonalLength) == true || CheckBoxAbort.Checked == false)
+                    if (IsFreeSpace(ExistingData, SaveOffset, OrigonalOffset, OrigonalLength)  || !CheckBoxAbort.Checked)
                     {
                         write.WriteBytes(Data, this.SaveOffset);
 
@@ -99,7 +99,7 @@ namespace NSE2
                         Program.MainForm.LogWriter.LogMessage("Saved Data 0x" + OrigonalOffset.ToString("X") + " to 0x" + SaveOffset.ToString("X"));
                         
 
-                        if (CheckBoxPointers.Checked == true && SaveOffset != OrigonalOffset && OrigonalOffset != -1)
+                        if (CheckBoxPointers.Checked  && SaveOffset != OrigonalOffset && OrigonalOffset != -1)
                         {
                             byte[] _old = BitConverter.GetBytes(OrigonalOffset);
                             _old = new byte[] { _old[0], _old[1], _old[2], (byte)(_old[3] + 0x8) };
@@ -110,7 +110,7 @@ namespace NSE2
                             NSE_Framework.Find find = new NSE_Framework.Find(Program.MainForm.Filename);
                             List<int> ReplacedOffsets = new List<int>();
 
-                            if (Program.MainForm.AdvancedRepointing == false)
+                            if (!Program.MainForm.AdvancedRepointing)
                             {
                                 find.SearchAndReplace(_old, _new, out ReplacedOffsets);
 

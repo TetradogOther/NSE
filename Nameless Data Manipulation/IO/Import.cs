@@ -37,7 +37,7 @@ namespace NSE_Framework.IO
         public static Data.Sprite ImportImage(string Filename)
         {
             
-            if (System.IO.File.Exists(Filename) == true)
+            if (System.IO.File.Exists(Filename) )
             {
                 
                 Bitmap bitmap = new Bitmap(Filename);
@@ -61,7 +61,7 @@ namespace NSE_Framework.IO
                     {
                         bool r = false;
                         int i = 16;
-                        while( i < palette.Entries.Length & r == false)
+                        while( i < palette.Entries.Length & !r)
                         {
                             if (palette.Entries[i].ToArgb() != Color.Black.ToArgb())
                                 r = true;
@@ -69,7 +69,7 @@ namespace NSE_Framework.IO
                             i++;
                         }
 
-                        if (r == true)
+                        if (r )
                         {
                             Sprite = new Data.Sprite(bitmap.Width / 8, bitmap.Height / 8, Data.Sprite.SpriteType.Color256);
                         }

@@ -147,7 +147,7 @@ namespace NSE2
             this.Editor.CurrentSprite = Sprite;
             if (Sprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color16)
             {
-                if (Sprite.UniqueImage == true)
+                if (Sprite.UniqueImage )
                 {
                     if (Sprite.CompressedSprite != -1)
                     {
@@ -166,7 +166,7 @@ namespace NSE2
             }
             else if (Sprite.Type == NSE_Framework.Data.Sprite.SpriteType.Color256)
             {
-                if (Sprite.UniqueImage == true)
+                if (Sprite.UniqueImage )
                 {
                     if (Sprite.CompressedSprite != -1)
                     {
@@ -222,7 +222,7 @@ namespace NSE2
 
                 sprite.ImageData = this.SpriteLibrary.Sprites[index].SpriteData[frame].Data;
 
-                if (this.SpriteLibrary.Sprites[index].SpriteData[frame].Compressed == true)
+                if (this.SpriteLibrary.Sprites[index].SpriteData[frame].Compressed )
                 {
                     sprite.ImageData = NSE_Framework.Data.Lz77.DecompressBytes(sprite.ImageData);
                 }

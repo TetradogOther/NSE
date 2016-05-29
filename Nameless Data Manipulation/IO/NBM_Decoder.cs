@@ -409,7 +409,7 @@ namespace NSE_Framework.IO
                             }
                                                        
                             
-                            if (nxt == true)
+                            if (nxt )
                             {
                                 index++;
                             }

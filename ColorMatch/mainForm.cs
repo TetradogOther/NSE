@@ -37,7 +37,7 @@ namespace ColorMatch
 
                 if (iDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK & iDialog.FileName != "")
                 {
-                    if (System.IO.File.Exists(iDialog.FileName) == true)
+                    if (System.IO.File.Exists(iDialog.FileName) )
                     {
                         string extension = Path.GetExtension(iDialog.FileName).Substring(1).ToLower();
 
@@ -142,7 +142,7 @@ namespace ColorMatch
 
             if (iDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK && !String.IsNullOrEmpty(iDialog.FileName))
             {
-                if (System.IO.File.Exists(iDialog.FileName) == true)
+                if (System.IO.File.Exists(iDialog.FileName) )
                 {
                     oldName = Path.GetFileNameWithoutExtension(iDialog.FileName);
                     Bitmap bm = new Bitmap(iDialog.FileName);

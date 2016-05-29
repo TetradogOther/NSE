@@ -69,7 +69,7 @@ namespace OWEditor
 
         public override void Load()
         {
-            if (OWEditor.Program.opened == false)
+            if (!OWEditor.Program.opened)
             {
                 m_form = new MainForm(this.Host);
                 OWEditor.Program.opened = true;

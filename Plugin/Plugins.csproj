@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nameless Data Manipulation\NSE Framework.csproj">
-      <Project>{B04796FB-D65D-4E07-BBF4-7CBA6A00527D}</Project>
+      <Project>{b04796fb-d65d-4e07-bbf4-7cba6a00527d}</Project>
       <Name>NSE Framework</Name>
     </ProjectReference>
   </ItemGroup>

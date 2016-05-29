@@ -154,7 +154,7 @@ namespace NSE2
 
                 byte[] data = this.Library.Sprites[spriteIndex].SpriteData[dataIndex].Data;
 
-                if (this.Library.Sprites[spriteIndex].SpriteData[dataIndex].Compressed == true)
+                if (this.Library.Sprites[spriteIndex].SpriteData[dataIndex].Compressed )
                 {
                     data = NSE_Framework.Data.Lz77.DecompressBytes(data);
                 }
@@ -226,7 +226,7 @@ namespace NSE2
                             {
                                 byte[] data = this.Library.Sprites[spriteIndex].SpriteData[dataIndex].Data;
 
-                                if (this.Library.Sprites[spriteIndex].SpriteData[dataIndex].Compressed == true)
+                                if (this.Library.Sprites[spriteIndex].SpriteData[dataIndex].Compressed )
                                 {
                                     data = NSE_Framework.Data.Lz77.DecompressBytes(data);
                                 }

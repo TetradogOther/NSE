@@ -22,7 +22,7 @@ namespace NSE_Framework
         {
             int _return = -1;
             int FindPos = StartOffset;
-            if (Safe == true)
+            if (Safe )
             {
                 FindPos = FindPos - FindPos % 4;
             }
@@ -44,7 +44,7 @@ namespace NSE_Framework
             while (check == -1 && FindPos < Stream.Length - 513)
             {
                 ReadBytes = br.ReadBytes(Window);
-                if (Safe == true)
+                if (Safe )
                 {
                     check = FindSafeBytes(ReadBytes, SearchBytes);
                 }
@@ -54,11 +54,11 @@ namespace NSE_Framework
                 }
                 if (check != -1)
                 {
-                    if (Safe == false)
+                    if (!Safe)
                     {
                         _return = FindPos + check;
                     }
-                    else if (Safe == true && (FindPos + check) % 4 == 0)
+                    else if (Safe  && (FindPos + check) % 4 == 0)
                     {
                         _return = FindPos + check;
                     }
@@ -89,7 +89,7 @@ namespace NSE_Framework
                 {
                     compatible = true;
                     fpos2 = 0;
-                    while (!(fpos2 == SearchBytes.Length || compatible == false))
+                    while (!(fpos2 == SearchBytes.Length || !compatible))
                     {
                         if (Bytes[Offset + fpos2] != SearchBytes[fpos2])
                         {
@@ -97,7 +97,7 @@ namespace NSE_Framework
                         }
                         fpos2 = fpos2 + 1;
                     }
-                    if (compatible == true)
+                    if (compatible )
                     {
                         _return = Offset;
                     }
@@ -125,7 +125,7 @@ namespace NSE_Framework
                 {
                     compatible = true;
                     fpos2 = 0;
-                    while (!(fpos2 == SearchBytes.Length || compatible == false))
+                    while (!(fpos2 == SearchBytes.Length || !compatible))
                     {
                         if (Bytes[Offset + fpos2] != SearchBytes[fpos2])
                         {
@@ -133,7 +133,7 @@ namespace NSE_Framework
                         }
                         fpos2 = fpos2 + 1;
                     }
-                    if (compatible == true)
+                    if (compatible )
                     {
                         _return = Offset;
                     }

@@ -48,28 +48,14 @@ namespace NSE_Framework.Data
         {
             get
             {
-                if (imageOffset >= 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return imageOffset >= 0;
             }
         }
         public bool UniquePalette
         {
             get
             {
-                if (paletteOffset >= 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return paletteOffset >= 0;
             }
         }
 

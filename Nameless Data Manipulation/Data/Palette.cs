@@ -26,7 +26,7 @@ namespace NSE_Framework.Data
                 this.Colors = new GBAcolor[16];
             }
 
-            if (Type == PaletteType.Color256)
+           else 
             {
                 this.Colors = new GBAcolor[256];
             }
@@ -40,7 +40,7 @@ namespace NSE_Framework.Data
                 this.Colors = new GBAcolor[16];
             }
 
-            if (Type == PaletteType.Color256)
+           else
             {
                 this.Colors = new GBAcolor[256];
             }

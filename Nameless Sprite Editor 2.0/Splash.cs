@@ -19,19 +19,19 @@ namespace NSE2
 
         private void Close_CheckedChanged(object sender, EventArgs e)
         {
-            if (CloseCheck.Checked == true)
+            if (CloseCheck.Checked )
                 this.Visible = false;
 
         }
 
         private void Navigate_Click(object sender, EventArgs e)
         {
-            if (Program.Navigate.IsDisposed == true)
+            if (Program.Navigate.IsDisposed )
             {
                 Program.Navigate = new Navigate();
             }
 
-            if (Program.Navigate.Visible == false)
+            if (!Program.Navigate.Visible)
             {
                 Program.Navigate.Show(Program.MainForm);
             }

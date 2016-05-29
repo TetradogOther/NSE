@@ -25,7 +25,7 @@ namespace NSE2
 
         void RefreshSize()
         {
-            if (rs == true)
+            if (rs )
             {
                  uint size;
 
@@ -90,7 +90,7 @@ namespace NSE2
             {
                 ComboBoxHeight.SelectedIndex = ComboBoxWidth.SelectedIndex;
 
-                if (rs == true)
+                if (rs )
                 {
                     rs = false;
                     if (ComboBoxWidth.SelectedIndex == 0)
@@ -121,7 +121,7 @@ namespace NSE2
             {
                 ComboBoxWidth.SelectedIndex = ComboBoxHeight.SelectedIndex;
 
-                if (rs == true)
+                if (rs )
                 {
                     rs = false;
                     if (ComboBoxWidth.SelectedIndex == 0)
@@ -146,7 +146,7 @@ namespace NSE2
 
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            if (rs == true)
+            if (rs )
             {
                 rs = false;
 
@@ -186,7 +186,7 @@ namespace NSE2
 
         private void TextBoxWidth_Leave(object sender, EventArgs e)
         {
-            if (rs == true)
+            if (rs )
             {
                 rs = false;
 
@@ -217,7 +217,7 @@ namespace NSE2
 
         private void TextBoxHeight_Leave(object sender, EventArgs e)
         {
-            if (rs == true)
+            if (rs )
             {
                 rs = false;
 

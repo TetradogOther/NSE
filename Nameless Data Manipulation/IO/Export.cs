@@ -147,7 +147,7 @@ namespace NSE_Framework.IO
 
         public static void ExportBookMarkTree(string Filename, BookMarkTree Tree)
         {
-            if (Directory.Exists(Filename) == false)
+            if (!Directory.Exists(Filename))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Filename));
             }

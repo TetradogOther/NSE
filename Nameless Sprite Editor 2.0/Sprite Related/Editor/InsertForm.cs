@@ -50,11 +50,11 @@ namespace NSE2
 
 
 
-                if (Program.MainForm.SafetyRepointing == true && this.SaveOffset % 4 == 0 || Program.MainForm.SafetyRepointing == false)
+                if (Program.MainForm.SafetyRepointing  && this.SaveOffset % 4 == 0 || !Program.MainForm.SafetyRepointing)
                 {            
                     byte[] ExistingData = Program.MainForm.Read.ReadBytes(SaveOffset, Data.Length);
 
-                    if (IsFreeSpace(ExistingData, SaveOffset) == true || CheckBoxAbort.Checked == false)
+                    if (IsFreeSpace(ExistingData, SaveOffset)  || !CheckBoxAbort.Checked)
                     {
                         write.WriteBytes(Data, this.SaveOffset);
                         MessageBox.Show(this, "Inserted data at offset 0x" + this.SaveOffset.ToString("X"), "Success:", MessageBoxButtons.OK, MessageBoxIcon.Information);
